@@ -24,11 +24,14 @@ class CreateHomesTable extends Migration
             $table->foreign('bathroom_id')->references('id')->on("bathrooms");
             $table->unsignedBigInteger('price_id');
             $table->foreign('price_id')->references('id')->on("level_prices");
+            $table->string('price');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on("categories");
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on("room_statuses");
             $table->string('description')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

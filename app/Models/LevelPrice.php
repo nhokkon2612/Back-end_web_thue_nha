@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class LevelPrice extends Model
 {
     use HasFactory;
+
+    public function home()
+    {
+        return $this->hasMany(Home::class,'price_id');
+    }
 }
