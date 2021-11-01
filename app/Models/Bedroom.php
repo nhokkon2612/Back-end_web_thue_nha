@@ -8,9 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Bedroom extends Model
 {
     use HasFactory;
-
-    public function home()
-    {
-        return $this->belongsTo('home','bedroom_id');
-    }
 }

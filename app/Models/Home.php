@@ -8,9 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Home extends Model
 {
     use HasFactory;
-
-    public function home()
-    {
-        return $this->hasOne();
-    }
 }
