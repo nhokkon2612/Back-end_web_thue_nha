@@ -20,6 +20,7 @@ class CreateCommentVoteTable extends Migration
             $table->foreign('home_id')->references('id')->on('homes');
             $table->integer('vote')->nullable();
             $table->text('comment')->nullable();
+            $table->dateTime('time');
             $table->timestamps();
         });
     }

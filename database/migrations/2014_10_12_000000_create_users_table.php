@@ -20,10 +20,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone')->nullable();
-            $table->string('cmnd')->nullable();
+            $table->string('id_card')->nullable();
             $table->text('image')->nullable();
-            $table->string('stk')->nullable();
-/*            thieu 3 khoa ngoai : role,address,bank*/
             $table->rememberToken();
             $table->timestamps();
         });

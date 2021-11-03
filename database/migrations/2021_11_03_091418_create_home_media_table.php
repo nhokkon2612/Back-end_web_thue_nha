@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLocationsTable extends Migration
+class CreateHomeMediaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('locations', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->integer('level');
-            $table->unsignedBigInteger('parent_id');
-            $table->foreign('parent_id')->references('id')->on('locations');
+        Schema::create('home_media', function (Blueprint $table) {
+            $table->unsignedBigInteger('home_id');
+            $table->unsignedBigInteger('media_id');
+            $table->foreign('home_id')->references('id')->on('homes');
+            $table->foreign('media_id')->references('id')->on('media');
             $table->timestamps();
-
         });
     }
 
@@ -31,6 +29,6 @@ class CreateLocationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('home_media');
     }
 }

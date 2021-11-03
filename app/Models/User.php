@@ -43,20 +43,11 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function bank()
-    {
-        return $this->belongsTo(Bank::class,'bank_id');
-    }
-
     public function role()
     {
         return $this->belongsToMany(Role::class,'user_role','role_id');
     }
 
-    public function location()
-    {
-        return $this->belongsToMany(Location::class,'user_location','user_id');
-    }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

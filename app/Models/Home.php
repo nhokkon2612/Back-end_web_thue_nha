@@ -34,13 +34,23 @@ class Home extends Model
         return $this->belongsTo(LevelSquared::class,'squared_id');
     }
 
-    public function roomstatus()
+    public function homestatus()
     {
-        return $this->belongsTo(RoomStatus::class,'status_id');
+        return $this->belongsTo(HomeStatus::class,'status_id');
     }
 
-    public function location()
+    public function city()
     {
-        return $this->belongsToMany(Home::class,'home_location','location_id');
+        return $this->belongsTo(City::class,'city_id');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class,'district_id');
+    }
+
+    public function media()
+    {
+        return $this->belongsToMany(Media::class,'home_media','home_id');
     }
 }

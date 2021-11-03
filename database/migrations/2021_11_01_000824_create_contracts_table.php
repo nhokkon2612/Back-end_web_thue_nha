@@ -23,8 +23,8 @@ class CreateContractsTable extends Migration
             $table->dateTime('end_time')->nullable();
             $table->string('renter_phone');
             $table->string('leaser_phone');
-            $table->string('renter_cmnd');
-            $table->string('leaser_cmnd');
+            $table->string('renter_idcard');
+            $table->string('leaser_idcard');
             $table->text('regulations');
             $table->text('description')->nullable();
             $table->timestamps();
