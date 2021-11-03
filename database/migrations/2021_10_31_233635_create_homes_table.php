@@ -15,6 +15,7 @@ class CreateHomesTable extends Migration
     {
         Schema::create('homes', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
             $table->unsignedBigInteger('squared_id');
             $table->foreign('squared_id')->references('id')->on("level_squareds");
             $table->string('detail_address');
@@ -28,11 +29,15 @@ class CreateHomesTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on("categories");
             $table->unsignedBigInteger('status_id');
-            $table->foreign('status_id')->references('id')->on("room_statuses");
+            $table->foreign('status_id')->references('id')->on("home_statuses");
             $table->string('description')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
+            $table->unsignedBigInteger('city_id');
+            $table->foreign('city_id')->references('id')->on('cities');
+            $table->unsignedBigInteger('district_id');
+            $table->foreign('district_id')->references('id')->on('districts');
         });
     }
 

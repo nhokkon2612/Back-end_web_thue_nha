@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bank extends Model
+class City extends Model
 {
     use HasFactory;
 
-    public function user()
+    public function home()
     {
-        return $this->hasMany(User::class,'bank_id');
+        return $this->hasMany(Home::class,'city_id');
     }
 }
