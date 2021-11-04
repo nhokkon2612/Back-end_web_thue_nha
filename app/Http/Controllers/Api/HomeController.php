@@ -12,9 +12,16 @@ use App\Models\HomeStatus;
 use App\Models\LevelPrice;
 use App\Models\LevelSquared;
 use Illuminate\Http\Request;
+use App\Models\Home;
 
 class HomeController extends Controller
 {
+    public function index()
+    {
+        $homes = Home::with('bedroom', 'bathroom', 'category', 'levelprice', 'levelsquared', 'homestatus', 'city', 'district', 'media')->get();
+        return response()->json($homes);
+    }
+
     public function getInfoForFormCreateAndUpdate()
     {
         $categories = Category::all();
