@@ -23,7 +23,6 @@ Route::group(['middleware' => ['api'],
     Route::middleware('jwt.auth')->group(function () {
         Route::get('me', [AuthController::class, 'me']);
         Route::get('logout',[AuthController::class,'logout']);
-        Route::get('getInfoForHomeForm',[HomeController::class,'getInfoForFormCreateAndUpdate']);
     });
 
     Route::post('login', [AuthController::class, 'login']);
@@ -31,3 +30,13 @@ Route::group(['middleware' => ['api'],
     Route::post('refresh', [AuthController::class,'refresh']);
 
 });
+
+Route::group(['middleware'=>['api'],
+    'prefix'=>'home'
+],function ($router){
+    Route::middleware('jwt.auth')->group(function (){
+        Route::get('form',[HomeController::class,'getInfoForFormCreateAndUpdate']);
+        Route::post('updatehomestatus',[HomeController::class,'updateHomeStatus']);
+    });
+});
+
