@@ -8,14 +8,16 @@ use App\Models\Bedroom;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\District;
+use App\Models\Home;
 use App\Models\HomeStatus;
 use App\Models\LevelPrice;
 use App\Models\LevelSquared;
 use Illuminate\Http\Request;
-use App\Models\Home;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
+
     public function index()
     {
         $homes = Home::with('bedroom', 'bathroom', 'category', 'levelprice', 'levelsquared', 'homestatus', 'city', 'district', 'media')->get();
@@ -42,6 +44,27 @@ class HomeController extends Controller
             'cites' => $cites,
             'districts' => $districts
         ];
+        return response()->json($data);
+    }
+
+    public function updateHomeStatus(Request $request)
+    {
+        $home = Home::where('id', '=', $request->id)->first();
+        if (Auth::user()->id != $request->user_id) {
+            $data = [
+                'status' => 'error',
+                'message' => 'Bạn không có quyền với tác vụ này !',
+                'data' => ''
+            ];
+        } else {
+            $home->status_id = $request->status_id;
+            $home->save();
+            $data = [
+                'status' => 'success',
+                'message' => 'Cập nhật trang thái nhà thành công',
+                'data' => ''
+            ];
+        }
         return response()->json($data);
     }
 }
