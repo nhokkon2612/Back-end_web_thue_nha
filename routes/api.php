@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,9 +23,11 @@ Route::group(['middleware' => ['api'],
     Route::middleware('jwt.auth')->group(function () {
         Route::get('me', [AuthController::class, 'me']);
         Route::get('logout',[AuthController::class,'logout']);
+        Route::get('getInfoForHomeForm',[HomeController::class,'getInfoForFormCreateAndUpdate']);
     });
 
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
     Route::post('refresh', [AuthController::class,'refresh']);
+
 });
