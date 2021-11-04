@@ -18,7 +18,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $homes = Home::with('bedroom', 'bathroom', 'category', 'levelprice', 'levelsquared', 'homestatus', 'city', 'district', 'media')->get();
+        $homes = Home::with('bedroom', 'bathroom', 'category', 'levelprice', 'levelsquared', 'homestatus', 'city', 'district', 'media', 'user')->get();
         return response()->json($homes);
     }
 
@@ -43,5 +43,11 @@ class HomeController extends Controller
             'districts' => $districts
         ];
         return response()->json($data);
+    }
+
+    public function create(Request $request)
+    {
+        $homes = Home::with('bedroom', 'bathroom', 'category', 'levelprice', 'levelsquared', 'homestatus', 'city', 'district', 'media', 'user')->insert($request->all());
+        return response()->json($homes);
     }
 }
