@@ -53,6 +53,7 @@ class HomeController extends Controller
         $homes = Home::with('bedroom', 'bathroom', 'category', 'levelprice', 'levelsquared', 'homestatus', 'city', 'district', 'media', 'user')->insert($request->all());
         return response()->json($homes);
     }
+
     public function updateHomeStatus(Request $request)
     {
         $home = Home::where('id', '=', $request->id)->first();
