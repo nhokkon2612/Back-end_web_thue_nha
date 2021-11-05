@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -13,37 +14,54 @@ class AuthController extends Controller
     {
     }
 
-    public function register(Request $request) {
+    public function register(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|min:6',
         ]);
 
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
+        if ($validator->fails()) {
+            $data = [
+                'status' => 'error',
+                'message' => $validator->errors(),
+                'data' => ''
+            ];
+        } else {
+            $user = User::create(array_merge(
+                $validator->validated(),
+                ['password' => Hash::make($request->password)]
+            ));
+            $data = [
+                'status' => 'success',
+                'message' => 'Đăng ký thành công',
+                'data' => $user
+            ];
         }
-
-        $user = User::create(array_merge(
-            $validator->validated(),
-            ['password' => bcrypt($request->password)]
-        ));
-
-        return response()->json([
-            'message' => 'User successfully registered',
-            'user' => $user
-        ], 201);
+        return response()->json($data);
     }
 
     public function login()
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if (!$token = auth()->attempt($credentials)) {
+            $data = [
+                'status' => 'error',
+                'message' => 'Account not exits'
+            ];
+            return response()->json($data);
         }
 
-        return $this->respondWithToken($token);
+        $data = [
+            'status' => 'success',
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'access_token' => $token,
+        ];
+
+        return response()->json($data);
     }
 
     /**
@@ -81,7 +99,7 @@ class AuthController extends Controller
     /**
      * Get the token array structure.
      *
-     * @param  string $token
+     * @param string $token
      *
      * @return \Illuminate\Http\JsonResponse
      */
