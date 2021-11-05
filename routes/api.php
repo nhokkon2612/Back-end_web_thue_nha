@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::prefix('houses')->group(function () {
+    Route::get('/', [HomeController::class, 'index']);
+    Route::post('/', [HomeController::class, 'create']);
+});
 Route::get('list', [HomeController::class, 'index']);
 Route::post('create', [HomeController::class, 'create']);
 
@@ -23,21 +28,21 @@ Route::group(['middleware' => ['api'],
 ], function ($router) {
 
     Route::middleware('jwt.auth')->group(function () {
-        Route::get('me', [AuthController::class, 'me']);
-        Route::get('logout',[AuthController::class,'logout']);
+        Route::post('me', [AuthController::class, 'me']);
+        Route::get('logout', [AuthController::class, 'logout']);
     });
 
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
-    Route::post('refresh', [AuthController::class,'refresh']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
 });
 
-Route::group(['middleware'=>['api'],
-    'prefix'=>'home'
-],function ($router){
-    Route::middleware('jwt.auth')->group(function (){
-        Route::get('form',[HomeController::class,'getInfoForFormCreateAndUpdate']);
-        Route::post('updatehomestatus',[HomeController::class,'updateHomeStatus']);
+Route::group(['middleware' => ['api'],
+    'prefix' => 'home'
+], function ($router) {
+    Route::middleware('jwt.auth')->group(function () {
+        Route::get('form', [HomeController::class, 'getInfoForFormCreateAndUpdate']);
+        Route::post('updatehomestatus', [HomeController::class, 'updateHomeStatus']);
     });
 });
 
