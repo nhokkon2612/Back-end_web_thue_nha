@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('list', [HomeController::class, 'index']);
 Route::post('create', [HomeController::class, 'create']);
+Route::get('form',[HomeController::class,'getInfoForFormCreateAndUpdate']);
 
 Route::group(['middleware' => ['api'],
     'prefix' => 'auth'
@@ -36,7 +37,6 @@ Route::group(['middleware'=>['api'],
     'prefix'=>'home'
 ],function ($router){
     Route::middleware('jwt.auth')->group(function (){
-        Route::get('form',[HomeController::class,'getInfoForFormCreateAndUpdate']);
         Route::post('updatehomestatus',[HomeController::class,'updateHomeStatus']);
     });
 });
