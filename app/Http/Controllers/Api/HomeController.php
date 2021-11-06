@@ -73,4 +73,9 @@ class HomeController extends Controller
         }
         return response()->json($data);
     }
+    public function detail($id)
+    {
+        $home = Home::with('bedroom', 'bathroom', 'category', 'levelprice', 'levelsquared', 'homestatus', 'city', 'district', 'media', 'user')->where('id', '=',$id)->first();
+        return response()->json($home);
+    }
 }

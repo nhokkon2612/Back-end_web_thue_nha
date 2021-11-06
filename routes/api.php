@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('list', [HomeController::class, 'index']);
 Route::post('create', [HomeController::class, 'create']);
+Route::get('{id}/detail',[HomeController::class,'detail']);
 
 Route::group(['middleware' => ['api'],
     'prefix' => 'auth'
