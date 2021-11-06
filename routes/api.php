@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\HouseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,29 +15,36 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('list', [HomeController::class, 'index']);
-Route::post('create', [HomeController::class, 'create']);
-Route::get('form',[HomeController::class,'getInfoForFormCreateAndUpdate']);
+
+Route::prefix('houses')->group(function () {
+    Route::get('/', [HouseController::class, 'index']);
+    Route::post('/', [HouseController::class, 'create']);
+    Route::get('{id}/detail',[HouseController::class,'detail']);
+});
+
+Route::get('form',[HouseController::class,'getInfoForFormCreateAndUpdate']);
 
 Route::group(['middleware' => ['api'],
     'prefix' => 'auth'
 ], function ($router) {
 
     Route::middleware('jwt.auth')->group(function () {
-        Route::get('me', [AuthController::class, 'me']);
-        Route::get('logout',[AuthController::class,'logout']);
+        Route::post('me', [AuthController::class, 'me']);
+        Route::get('logout', [AuthController::class, 'logout']);
     });
 
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
-    Route::post('refresh', [AuthController::class,'refresh']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
 });
 
-Route::group(['middleware'=>['api'],
-    'prefix'=>'home'
-],function ($router){
-    Route::middleware('jwt.auth')->group(function (){
-        Route::post('updatehomestatus',[HomeController::class,'updateHomeStatus']);
+
+Route::group(['middleware' => ['api'],
+    'prefix' => 'houses'
+], function ($router) {
+    Route::middleware('jwt.auth')->group(function () {
+        Route::get('form', [HouseController::class, 'getInfoForFormCreateAndUpdate']);
+        Route::post('updatehousestatus', [HouseController::class, 'updateHouseStatus']);
     });
 });
 
