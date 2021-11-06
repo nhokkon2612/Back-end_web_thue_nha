@@ -49,7 +49,7 @@ class AuthController extends Controller
         if (!$token = auth()->attempt($credentials)) {
             $data = [
                 'status' => 'error',
-                'message' => 'Account not exits'
+                'message' => 'Tài khoản đăng nhập hoặc mật khẩu không chính xác'
             ];
             return response()->json($data);
         }

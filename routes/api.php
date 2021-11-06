@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\HouseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,11 +17,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('houses')->group(function () {
-    Route::get('/', [HomeController::class, 'index']);
-    Route::post('/', [HomeController::class, 'create']);
+    Route::get('/', [HouseController::class, 'index']);
+    Route::post('/', [HouseController::class, 'create']);
+    Route::get('{id}/detail',[HouseController::class,'detail']);
 });
-Route::get('list', [HomeController::class, 'index']);
-Route::post('create', [HomeController::class, 'create']);
+
+Route::get('form',[HouseController::class,'getInfoForFormCreateAndUpdate']);
 
 Route::group(['middleware' => ['api'],
     'prefix' => 'auth'
@@ -37,12 +38,13 @@ Route::group(['middleware' => ['api'],
     Route::post('refresh', [AuthController::class, 'refresh']);
 });
 
+
 Route::group(['middleware' => ['api'],
-    'prefix' => 'home'
+    'prefix' => 'houses'
 ], function ($router) {
     Route::middleware('jwt.auth')->group(function () {
-        Route::get('form', [HomeController::class, 'getInfoForFormCreateAndUpdate']);
-        Route::post('updatehomestatus', [HomeController::class, 'updateHomeStatus']);
+        Route::get('form', [HouseController::class, 'getInfoForFormCreateAndUpdate']);
+        Route::post('updatehousestatus', [HouseController::class, 'updateHouseStatus']);
     });
 });
 

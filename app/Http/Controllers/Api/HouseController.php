@@ -15,7 +15,7 @@ use App\Models\LevelSquared;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class HomeController extends Controller
+class HouseController extends Controller
 {
 
     public function index()
@@ -54,7 +54,7 @@ class HomeController extends Controller
         return response()->json($homes);
     }
 
-    public function updateHomeStatus(Request $request)
+    public function updateHouseStatus(Request $request)
     {
         $home = Home::where('id', '=', $request->id)->first();
         if (Auth::user()->id != $request->user_id) {
@@ -73,5 +73,11 @@ class HomeController extends Controller
             ];
         }
         return response()->json($data);
+    }
+
+    public function detail($id)
+    {
+        $home = Home::with('bedroom', 'bathroom', 'category', 'levelprice', 'levelsquared', 'homestatus', 'city', 'district', 'media', 'user')->where('id', '=',$id)->first();
+        return response()->json($home);
     }
 }
