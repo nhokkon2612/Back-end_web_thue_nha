@@ -11,6 +11,6 @@ class Media extends Model
 
     public function home()
     {
-        return $this->belongsToMany(Home::class,'home_media','media_id');
+        return $this->hasOne(Home::class,'media_id');
     }
 }
