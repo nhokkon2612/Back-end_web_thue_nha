@@ -51,7 +51,7 @@ class Home extends Model
 
     public function media()
     {
-        return $this->belongsToMany(Media::class, 'home_media', 'home_id');
+        return $this->belongsTo(Media::class, 'home_id');
     }
 
     public function user()
