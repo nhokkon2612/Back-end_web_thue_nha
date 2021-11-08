@@ -52,7 +52,6 @@ class HouseController extends Controller
 
     public function create(Request $request)
     {
-//        $homes = Home::with('bedroom', 'bathroom', 'category', 'levelprice', 'levelsquared', 'homestatus', 'city', 'district', 'media', 'user')->insert($request->all());
         DB::beginTransaction();
         try {
             $home = new Home();
@@ -84,7 +83,6 @@ class HouseController extends Controller
             ];
             return response()->json($data);
         }
-//        return response()->json($homes);
     }
 
     public function updateHouseStatus(Request $request)
