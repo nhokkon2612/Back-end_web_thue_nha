@@ -15,6 +15,8 @@ class CreateMediaTable extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('home_id');
+            $table->foreign('home_id')->references('id')->on('homes');
             $table->text('content');
             $table->timestamps();
         });

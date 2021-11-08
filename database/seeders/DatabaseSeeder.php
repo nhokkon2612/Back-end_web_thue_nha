@@ -25,9 +25,8 @@ class DatabaseSeeder extends Seeder
         $this->call(DistrictSeeder::class);
         $this->call(LevelSquareSeeder::class);
         $this->call(LevelPriceSeeder::class);
-        $this->call(HomeStatusSeeder::class);
-        $this->call(MediaSeeder::class);
+        $this->call(HomeStatusSeeder::class)
         $this->call(HomeSeeder::class);
-        $this->call(HomeMediaSeeder::class);
+        $this->call(MediaSeeder::class);
     }
 }
