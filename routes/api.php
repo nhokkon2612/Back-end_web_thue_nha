@@ -21,6 +21,7 @@ Route::prefix('houses')->group(function () {
     Route::post('/', [HouseController::class, 'create']);
     Route::get('{id}/detail', [HouseController::class, 'detail']);
     Route::put('{id}/update', [HouseController::class, 'update']);
+    Route::get('{id}/delete', [HouseController::class, 'delete']);
 });
 
 Route::get('form', [HouseController::class, 'getInfoForFormCreateAndUpdate']);

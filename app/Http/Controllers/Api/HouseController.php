@@ -115,7 +115,16 @@ class HouseController extends Controller
                 'message' => 'Thêm mới thất bại'
             ];
             return response()->json($data);
-
         }
+    }
+
+    public function delete($id)
+    {
+        $home = Home::find($id);
+        $home->delete();
+        return response()->json([
+           'status' => 'success',
+           'message' => 'Xóa thành công'
+        ]);
     }
 }
