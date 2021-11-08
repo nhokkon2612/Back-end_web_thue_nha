@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -53,12 +54,13 @@ class AuthController extends Controller
             ];
             return response()->json($data);
         }
-
+        $user = Auth::user();
         $data = [
             'status' => 'success',
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
             'access_token' => $token,
+            'user_infor' => $user
         ];
 
         return response()->json($data);

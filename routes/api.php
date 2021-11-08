@@ -19,10 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('houses')->group(function () {
     Route::get('/', [HouseController::class, 'index']);
     Route::post('/', [HouseController::class, 'create']);
-    Route::get('{id}/detail',[HouseController::class,'detail']);
+    Route::get('{id}/detail', [HouseController::class, 'detail']);
+    Route::put('{id}/update', [HouseController::class, 'update']);
 });
 
-Route::get('form',[HouseController::class,'getInfoForFormCreateAndUpdate']);
+Route::get('form', [HouseController::class, 'getInfoForFormCreateAndUpdate']);
 
 Route::group(['middleware' => ['api'],
     'prefix' => 'auth'
