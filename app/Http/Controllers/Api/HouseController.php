@@ -68,6 +68,7 @@ class HouseController extends Controller
             $home->user_id = $request->user_id;
             $home->city_id = $request->city_id;
             $home->district_id = $request->district_id;
+            $home->image = $request->image;
             $home->save();
             DB::commit();
             $data = [
@@ -130,18 +131,19 @@ class HouseController extends Controller
             $home->user_id = $request->user_id;
             $home->city_id = $request->city_id;
             $home->district_id = $request->district_id;
+            $home->image = $request->image;
             $home->save();
             DB::commit();
             $data = [
                 'status' => 'success',
-                'message' => 'Thêm mới thành công'
+                'message' => 'Cập nhật thành công'
             ];
             return response()->json($data);
         } catch (JWTException $e) {
             DB::rollBack();
             $data = [
                 'status' => 'error',
-                'message' => 'Thêm mới thất bại'
+                'message' => 'Cập nhật thất bại'
             ];
             return response()->json($data);
         }
@@ -152,8 +154,8 @@ class HouseController extends Controller
         $home = Home::find($id);
         $home->delete();
         return response()->json([
-           'status' => 'success',
-           'message' => 'Xóa thành công'
+            'status' => 'success',
+            'message' => 'Xóa thành công'
         ]);
     }
 }
